@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 
-from point_table import PointTable
+from app.point_table import PointTable
 
 app = Flask(__name__)
 
@@ -16,6 +16,7 @@ def index():
 def add_game():
     try:
         score = request.form.get('score')
+        score = int(score) if str(score).isdigit() else None
         point_table.add_game(score)
         return redirect('/')
     except Exception as err:
